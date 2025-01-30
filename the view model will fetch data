@@ -1,0 +1,33 @@
+class ItemViewModel(private val apiService: ApiService) : ViewModel() {
+    private val _books = MutableLiveData<List<Book>>()
+    val books: LiveData<List<Book>> get() = _books
+
+    private val _recipes = MutableLiveData<List<Recipe>>()
+    val recipes: LiveData<List<Recipe>> get() = _recipes
+
+    fun fetchBooks() {
+        viewModelScope.launch {
+            try {
+                val response = apiService.getBooks()
+                if (response.isSuccessful) {
+                    _books.postValue(response.body())
+                }
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+    }
+
+    fun fetchRecipes() {
+        viewModelScope.launch {
+            try {
+                val response = apiService.getRecipes()
+                if (response.isSuccessful) {
+                    _recipes.postValue(response.body())
+                }
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+    }
+}
