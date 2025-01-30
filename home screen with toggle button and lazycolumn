@@ -1,0 +1,34 @@
+@Composable
+fun HomeScreen(viewModel: ItemViewModel) {
+    var isBooksVisible by remember { mutableStateOf(true) }
+    val books by viewModel.books.observeAsState(emptyList())
+    val recipes by viewModel.recipes.observeAsState(emptyList())
+
+    Column {
+        Row {
+            Button(onClick = { isBooksVisible = true }) {
+                Text("Books")
+            }
+            Button(onClick = { isBooksVisible = false }) {
+                Text("Recipes")
+            }
+        }
+        LazyColumn {
+            if (isBooksVisible) {
+                items(books) { book ->
+                    ListItem(book = book)
+                }
+            } else {
+                items(recipes) { recipe ->
+                    ListItem(recipe = recipe)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ListItem(book: Book? = null, recipe: Recipe? = null) {
+    // Show either book or recipe details in the list item
+    Text(text = book?.title ?: recipe?.name ?: "")
+}
