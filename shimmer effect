@@ -1,0 +1,6 @@
+@Composable
+fun LoadingShimmer() {
+    Shimmer(
+        modifier = Modifier.fillMaxSize()
+    )
+}
