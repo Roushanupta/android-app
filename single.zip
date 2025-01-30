@@ -1,0 +1,32 @@
+val bookObservable = Single.create<List<Book>> {
+    try {
+        val response = apiService.getBooks()
+        if (response.isSuccessful) {
+            it.onSuccess(response.body() ?: emptyList())
+        }
+    } catch (e: Exception) {
+        it.onError(e)
+    }
+}
+
+val recipeObservable = Single.create<List<Recipe>> {
+    try {
+        val response = apiService.getRecipes()
+        if (response.isSuccessful) {
+            it.onSuccess(response.body() ?: emptyList())
+        }
+    } catch (e: Exception) {
+        it.onError(e)
+    }
+}
+
+Single.zip(bookObservable, recipeObservable, BiFunction { books: List<Book>, recipes: List<Recipe> ->
+    Pair(books, recipes)
+}).subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe({ result ->
+        val (books, recipes) = result
+        // Handle the result
+    }, { error ->
+        // Handle error
+    })
