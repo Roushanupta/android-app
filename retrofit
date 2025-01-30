@@ -1,0 +1,7 @@
+interface ApiService {
+    @GET("books")
+    suspend fun getBooks(): Response<List<Book>>
+
+    @GET("recipes")
+    suspend fun getRecipes(): Response<List<Recipe>>
+}
