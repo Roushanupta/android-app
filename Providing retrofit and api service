@@ -1,0 +1,8 @@
+val appModule = module {
+    single { Retrofit.Builder()
+        .baseUrl("https://example.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build() }
+    
+    single { get<Retrofit>().create(ApiService::class.java) }
+}
