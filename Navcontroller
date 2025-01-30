@@ -1,0 +1,8 @@
+NavHost(navController = navController, startDestination = "home") {
+    composable("home") { HomeScreen(viewModel) }
+    composable("detail/{itemId}") { backStackEntry ->
+        val itemId = backStackEntry.arguments?.getString("itemId")
+        // Pass item details to the DetailScreen
+        DetailScreen(item = fetchItemDetails(itemId))
+    }
+}
