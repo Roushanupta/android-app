@@ -1,0 +1,7 @@
+@Composable
+fun DetailScreen(item: Any) {
+    Column {
+        Text(text = "Title: ${item.title}")
+        Text(text = "Description: ${item.description}")
+    }
+}
