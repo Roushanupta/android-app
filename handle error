@@ -1,0 +1,5 @@
+try {
+    // Make API call
+} catch (e: Exception) {
+    // Show an error message to the user
+}
